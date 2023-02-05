@@ -18,7 +18,11 @@ export default function App() {
             Diana Nica
           </a>{" "}
           and is{" "}
-          <a href=" " target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/mdnica/react-weather-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             open-sourced on GitHub
           </a>
         </footer>
