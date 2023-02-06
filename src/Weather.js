@@ -1,56 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+
+import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
+
 import "./Weather.css";
 
-export default function Weather() {
-  return (
-    <div className="Weather">
-      <form>
-        <div className="row">
-          <div className="col-9">
-            <input
-              type="search"
-              placeholder="Enter a city.."
-              className="form-control"
-              autoFocus="on"
-            />
-          </div>
+export default function Weather(props) {
+  const [city, setCity] = useState(props.defaultCity);
+  const [ready, setReady] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
+  function handleResponse(response) {
+    setWeatherData({
+      coordinates: response.data.coord,
+      temperature: Math.round(response.data.main.temp),
+      wind: Math.round(response.data.wind.speed),
+      humidity: response.data.main.humidity,
+      city: response.data.name,
+      description: response.data.weather[0].description,
+      feels: Math.round(response.data.main.feels_like),
+      high: Math.round(response.data.main.temp_max),
+      low: Math.round(response.data.main.temp_min),
+      icon: response.data.weather[0].icon,
+      date: new Date(response.data.dt * 1000),
+    });
 
-          <div className="col-3">
-            <input
-              type="submit"
-              value="Search"
-              className="btn btn-primary w-100"
-            />
-          </div>
-        </div>
-      </form>
-      <h1>London</h1>
-      <ul>
-        <li>Wednesday 07:00</li>
-        <li>Cloudy</li>
-      </ul>
-      <div className="row mt-3">
-        <div className="col-6">
-          <div className="clearfix">
-            <img
-              src="//ssl.gstatic.com/onebox/weather/64/cloudy.png"
-              alt="Cloudy"
-              className="float-left"
-            />
-            <div className="float-left">
-              <span className="temperature">6</span>
-              <span className="unit">°C</span>
-            </div>
-          </div>
-        </div>
-        <div className="col-6">
-          <ul>
-            <li>Precipitation: 15%</li>
-            <li>Humidity: 72%</li>
-            <li>Wind: 13km/h</li>
-          </ul>
-        </div>
+    setReady(true);
+  }
+
+  function search() {
+    const apiKey = "f3009e4852fa0a079dab291dabf020c4";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    //Search for a city
+    search();
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  if (ready) {
+    return (
+      <div class="main">
+        <form id="input-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Enter city here"
+            id="city-input"
+            onChange={handleCityChange}
+          />
+          <input type="submit" value="search" id="search-button" />
+        </form>
+        <WeatherInfo data={weatherData} />
+        <WeatherForecast coordinates={weatherData.coordinates} />
       </div>
-    </div>
-  );
+    );
+  } else {
+    search();
+
+    return;
+  }
 }
