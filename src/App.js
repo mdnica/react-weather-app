@@ -1,34 +1,19 @@
 import React from "react";
-import Weather from "./Weather";
-
+import UilReact from "@iconscout/react-unicons/icons/uil-react";
 import "./App.css";
+import TopButtons from "./components/TopButtons";
+import Inputs from "./components/Inputs";
+import TimeAndLocation from "./components/TimeAndLocation";
+import TemperatureAndDetails from "./components/TemperatureAndDetails";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <div className="container">
-        <Weather />
-        <footer>
-          This project was coded by{" "}
-          <a
-            href="https://github.com/mdnica"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Diana Nica
-          </a>{" "}
-          and is{" "}
-          <a
-            href="https://github.com/mdnica/react-weather-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            open-sourced on GitHub
-          </a>
-        </footer>
-      </div>
+    <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
+      <TopButtons />
+      <Inputs />
+
+      <TimeAndLocation />
+      <TemperatureAndDetails />
     </div>
   );
 }
-
-export default App;
