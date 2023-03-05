@@ -5,6 +5,7 @@ import TopButtons from "./components/TopButtons";
 import Inputs from "./components/Inputs";
 import TimeAndLocation from "./components/TimeAndLocation";
 import TemperatureAndDetails from "./components/TemperatureAndDetails";
+import Forecast from "./components/Forecast";
 
 export default function App() {
   return (
@@ -14,6 +15,8 @@ export default function App() {
 
       <TimeAndLocation />
       <TemperatureAndDetails />
+
+      <Forecast title="hourly forecast" />
     </div>
   );
 }
