@@ -33,21 +33,33 @@ export default function App() {
   };
 
   return (
-    <div
-      className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}
-    >
-      <TopButtons setQuery={setQuery} />
-      <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
+    <div className="container">
+      <div
+        className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}
+      >
+        <TopButtons setQuery={setQuery} />
+        <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
 
-      {weather && (
-        <div>
-          <TimeAndLocation weather={weather} />
-          <TemperatureAndDetails weather={weather} />
+        {weather && (
+          <div>
+            <TimeAndLocation weather={weather} />
+            <TemperatureAndDetails weather={weather} />
 
-          <Forecast title="hourly forecast" items={weather.hourly} />
-          <Forecast title="daily forecast" items={weather.daily} />
-        </div>
-      )}
+            <Forecast title="hourly forecast" items={weather.hourly} />
+            <Forecast title="daily forecast" items={weather.daily} />
+          </div>
+        )}
+      </div>
+      <footer className="text-center justify-center">
+        <a
+          href="https://github.com/mdnica/react-weather-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          opensource code{" "}
+        </a>{" "}
+        by Diana Nica
+      </footer>
     </div>
   );
 }
