@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  UilUp,
-  UilDown,
   UilTemperature,
   UilTear,
   UilWind,
